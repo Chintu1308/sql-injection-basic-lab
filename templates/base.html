@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Lab</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .navbar { margin-bottom: 30px; }
+        .query-box { background: #212529; color: #00ff00; padding: 15px; border-radius: 5px; font-family: 'Courier New', Courier, monospace; margin-top: 20px; }
+        .lab-card { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">🛡️ SQLi Lab</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/login">Auth Bypass</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Union/Error</a></li>
+                <li class="nav-item"><a class="nav-link" href="/users">Blind SQLi</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}{% endblock %}
+
+    <!-- Debugger Window: Shows the SQL Query being executed -->
+    {% if query %}
+    <div class="mt-5">
+        <h5><span class="badge bg-warning text-dark">Developer Debugger</span></h5>
+        <div class="query-box">
+            <strong>Executed Query:</strong><br>
+            <code>{{ query }}</code>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

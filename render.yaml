@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: sqli-lab
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: sqli-lab-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+
+databases:
+  - name: sqli-lab-db
+    plan: free
+    databaseName: sqli_lab

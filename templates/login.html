@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card lab-card">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">User Login</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="e.g. admin' --">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                {% if user %}
+                <div class="alert alert-success mt-4">
+                    <strong>Success!</strong> Logged in as: <b>{{ user[1] }}</b> (Role: {{ user[3] }})
+                </div>
+                {% elif query and not user %}
+                <div class="alert alert-danger mt-4">Invalid credentials.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

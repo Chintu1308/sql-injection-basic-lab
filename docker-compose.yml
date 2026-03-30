@@ -1,0 +1,29 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: sqli_db
+    restart: always
+    environment:
+      POSTGRES_USER: lab_user
+      POSTGRES_PASSWORD: lab_password
+      POSTGRES_DB: sqli_lab
+    ports:
+      - "5433:5432"
+    volumes:
+      # This automatically runs your SQL script to setup tables on startup
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+
+  web:
+    build: .
+    container_name: sqli_web
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_NAME: sqli_lab
+      DB_USER: lab_user
+      DB_PASS: lab_password
+    depends_on:
+      - db

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3">
+        <div class="list-group shadow-sm">
+            <a href="#" class="list-group-item list-group-item-action active bg-danger border-danger">
+                🚀 Admin Home
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">Manage Users</a>
+            <a href="#" class="list-group-item list-group-item-action">Inventory Control</a>
+            <a href="#" class="list-group-item list-group-item-action">Server Configuration</a>
+            <a href="/logout" class="list-group-item list-group-item-action text-danger">Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">System Dashboard</h2>
+            <span class="badge bg-danger p-2">Logged in as: {{ user.username if user else 'Administrator' }}</span>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white shadow-sm border-0">
+                    <div class="card-body">
+                        <h6>Total Users</h6>
+                        <h2 class="mb-0">{{ stats.users }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-success text-white shadow-sm border-0">
+                    <div class="card-body">
+                        <h6>Product Inventory</h6>
+                        <h2 class="mb-0">{{ stats.products }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-dark text-white shadow-sm border-0">
+                    <div class="card-body">
+                        <h6>DB Engine</h6>
+                        <small>{{ stats.db_engine }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity Logs -->
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white fw-bold">Recent System Logs (Sensitive)</div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Time</th>
+                            <th>Event</th>
+                            <th>Triggered By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td><code>{{ log.time }}</code></td>
+                            <td>{{ log.event }}</td>
+                            <td><span class="badge bg-light text-dark border">{{ log.user }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4 p-3 bg-light rounded border border-warning">
+            <h5>⚠️ Admin Notice</h5>
+            <p class="small mb-0">This section is restricted to authorized personnel. Your IP has been logged for security purposes.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Special "Explain the Hack" Section for the students -->
+<div class="mt-5 p-4 bg-dark text-white rounded">
+    <h3>💡 How did you get here?</h3>
+    <p>You bypassed the authentication check by injecting a <strong>Tautology</strong>. Because the database was told <code>OR 1=1</code>, it returned every user in the table. The application then automatically logged you into the first account found: <strong>The Administrator</strong>.</p>
+</div>
+
+{% endblock %}
